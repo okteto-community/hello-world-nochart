@@ -1,0 +1,8 @@
+build:
+  hello-world:
+    context: .
+
+dev:
+  hello-world:
+    sync:
+    - .:/app
