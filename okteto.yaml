@@ -6,6 +6,21 @@ build:
     context: .
     target: dev
 
+deploy:
+  remote: true
+  commands:
+    - name: build hello-world image
+      command: |
+        set -ex
+        git clone "https://github.com/okteto-community/hello-world-chart" /tmp/hello-world-chart
+        cd /tmp/hello-world-chart
+        git checkout $HELLO_WORLD_BRANCH
+    - name: deploy application
+      command: |
+        ls /tmp
+        helm upgrade --install mydeploy /tmp/hello-world-chart/hello-world --set image.tag=$HELLO_WORLD_IMAGE_TAG
+
+
 dev:
   hello-world:
     image: $OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE
