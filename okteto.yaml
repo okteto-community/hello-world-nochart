@@ -1,8 +1,13 @@
 build:
   hello-world:
     context: .
+  
+  hello-world-dev:
+    context: .
+    target: dev
 
 dev:
   hello-world:
+    image: $OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE
     sync:
     - .:/app
