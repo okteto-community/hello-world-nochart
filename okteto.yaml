@@ -12,10 +12,11 @@ deploy:
     - name: deploy chart
       command: |
         set -ex
-        okteto pipeline deploy --repository https://github.com/okteto-community/hello-world-chart \
-          --branch rb/cross-deploy \
-          --var HELLO_WORLD_IMAGE_REPOSITORY="${OKTETO_BUILD_HELLO_WORLD_REGISTRY}/${OKTETO_BUILD_HELLO_WORLD_REPOSITORY}" \
-          --var HELLO_WORLD_IMAGE_TAG=$OKTETO_BUILD_HELLO_WORLD_SHA
+        git clone https://github.com/okteto-community/hello-world-chart /tmp/hello-world-chart
+        cd /tmp/hello-world-chart
+        git checkout rb/no-deps
+        cat okteto.yaml
+        okteto deploy --var HELLO_WORLD_IMAGE_REPOSITORY="${OKTETO_BUILD_HELLO_WORLD_REGISTRY}/${OKTETO_BUILD_HELLO_WORLD_REPOSITORY}" --var HELLO_WORLD_IMAGE_TAG="${OKTETO_BUILD_HELLO_WORLD_SHA}"
 dev:
   hello-world:
     image: $OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE
