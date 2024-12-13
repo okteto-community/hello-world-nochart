@@ -1,13 +1,21 @@
 build:
   hello-world:
     context: .
-  
+
   hello-world-dev:
     context: .
     target: dev
+
+deploy:
+  - name: deploy chart
+    command: |
+      set -ex
+      if [ "$DEPLOY" != "false" ]; then okteto pipeline deploy --wait=false --repository https://github.com/okteto-community/hello-world-chart \
+        --branch main \
+        --var HELLO_WORLD_IMAGE_TAG=$OKTETO_BUILD_HELLO_WORLD_SHA; fi
 
 dev:
   hello-world:
     image: $OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE
     sync:
-    - .:/app
+      - .:/app
