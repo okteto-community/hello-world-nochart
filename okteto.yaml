@@ -10,9 +10,9 @@ deploy:
   - name: deploy chart
     command: |
       set -ex
-      okteto pipeline deploy --wait=false --repository https://github.com/okteto-community/hello-world-chart \
+      if [ "$DEPLOY" != "false" ]; then okteto pipeline deploy --wait=false --repository https://github.com/okteto-community/hello-world-chart \
         --branch rb/cross-deploy \
-        --var HELLO_WORLD_IMAGE_TAG=$OKTETO_BUILD_HELLO_WORLD_SHA
+        --var HELLO_WORLD_IMAGE_TAG=$OKTETO_BUILD_HELLO_WORLD_SHA; fi
 
 dev:
   hello-world:
