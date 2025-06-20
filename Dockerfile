@@ -1,4 +1,4 @@
-FROM golang:1.23-bullseye AS dev
+FROM golang:1.24-bullseye AS dev
 
 RUN go install github.com/air-verse/air@latest
 WORKDIR /app
