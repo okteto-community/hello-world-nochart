@@ -1,6 +1,6 @@
-FROM golang:1.23-bullseye AS dev
+FROM golang:1.24-bullseye AS dev
 
-RUN go install github.com/air-verse/air@latest
+RUN go install github.com/air-verse/air@v1.62.0
 WORKDIR /app
 ADD . .
 RUN go build -o /app/hello-world
